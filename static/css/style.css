@@ -1,0 +1,159 @@
+/* Global styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f7fafc;
+    color: #4a5568;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Container */
+.container {
+    max-width: 800px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    background-color: #2b6cb0;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* Navbar */
+nav {
+    background-color: #2b6cb0;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 1.1rem;
+}
+
+nav a:hover {
+    background-color: #3182ce;
+    border-radius: 5px;
+}
+
+/* Form Inputs */
+input[type="text"],
+input[type="password"],
+input[type="file"],
+textarea,
+select {
+    width: 100%;
+    max-width: 500px; /* Set a max-width for input fields */
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #ffffff;
+    font-size: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #2b6cb0;
+    box-shadow: 0 0 5px rgba(43, 108, 176, 0.5);
+}
+
+/* Buttons */
+button {
+    background-color: #2b6cb0;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button:hover {
+    background-color: #3182ce;
+}
+
+/* Card Layouts for Dashboards */
+.card {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.card-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 15px;
+}
+
+.card-body {
+    font-size: 1rem;
+    color: #4a5568;
+}
+
+.card-footer {
+    text-align: right;
+    margin-top: 20px;
+}
+
+/* Dashboard Styles */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.dashboard .card {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #2b6cb0;
+    color: white;
+}
+
+footer p {
+    font-size: 1rem;
+}

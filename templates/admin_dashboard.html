@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Disabled Account Reporting System - Admin</h1>
+    </header>
+
+    <div class="container">
+        <div class="dashboard">
+            <div class="card">
+                <div class="card-header">
+                    Admin Dashboard
+                    <!-- Logout Button -->
+                    <a href="/logout" class="logout-btn">Logout</a>
+                </div>
+                <div class="card-body">
+                    <form action="/submit_report" method="POST" enctype="multipart/form-data">
+                        <label for="student_name">Student Name</label>
+                        <input type="text" id="student_name" name="student_name" placeholder="Student's Name" required>
+
+                        <label for="trno">Student TRNO</label>
+                        <input type="text" id="trno" name="trno" placeholder="Student TRNO" required>
+
+                        <label for="reason">Reason for Disabling</label>
+                        <textarea id="reason" name="reason" placeholder="Explain the reason" required></textarea>
+
+                        <label for="image">Upload Screenshot (if any)</label>
+                        <input type="file" id="image" name="image">
+
+                        <button type="submit">Submit Report</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Reports Section -->
+            <div class="card">
+                <div class="card-header">Reports</div>
+                <div class="card-body">
+                    <table>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>TRNO</th>
+                            <th>Reason</th>
+                            <th>Disabled By</th>
+                            <th>Date</th>
+                        </tr>
+                        <!-- Dynamic report entries will go here -->
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Mamal Administration System</p>
+    </footer>
+</body>
+
+</html>

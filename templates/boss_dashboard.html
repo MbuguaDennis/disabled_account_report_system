@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Janab Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px;
+            text-align: left;
+        }
+        img {
+            max-width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Disabled Accounts Report</h2>
+    <a href="{{ url_for('logout') }}">Logout</a> |
+    <a href="{{ url_for('export') }}">Export to Excel</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Student Name</th>
+                <th>TRNO</th>
+                <th>Disabled By</th>
+                <th>Reason</th>
+                <th>Screenshot</th>
+                <th>Date Disabled</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in reports %}
+            <tr>
+                <td>{{ report[0] }}</td>
+                <td>{{ report[1] }}</td>
+                <td>{{ report[2] }}</td>
+                <td>{{ report[3] }}</td>
+                <td>{{ report[4] }}</td>
+                <td>
+                    {% if report[5] %}
+                        <img src="{{ url_for('static', filename='uploads/' + report[5]) }}" alt="Screenshot">
+                    {% else %}
+                        No Image
+                    {% endif %}
+                </td>
+                <td>{{ report[6] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
