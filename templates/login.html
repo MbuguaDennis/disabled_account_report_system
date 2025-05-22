@@ -10,21 +10,24 @@
 
 <body>
     <header>
-        <h1>Disabled Account Reporting System</h1>
+        <h1>Students Account Status Management</h1>
     </header>
 
     <div class="container">
         <div class="card">
-            <div class="card-header">Login</div>
+            <div class="card-header">Login to access Personalized Dashboard <span></span></div>
             <div class="card-body">
                 <form action="/login" method="POST">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
-                    <label for="role">Select Your Role. Admininstrator || Janab</label>
-                    <select id="role" name="role" required>
-                        <option value="admin">Computer Lab Admin</option>
-                        <option value="boss">Janab</option>
-                    </select>
+                   <label for="username">Username</label>
+<input type="text" id="username" name="username" value="Administrator" required />
+
+<label for="role">Select Role</label>
+<select id="role" name="role" required>
+    <option value="" disabled selected>Select a role</option>
+    <option value="admin">Computer Lab Admin</option>
+    <option value="boss">Janab</option>
+</select>
+
                     <button type="submit">Login</button>
                 </form>
             </div>

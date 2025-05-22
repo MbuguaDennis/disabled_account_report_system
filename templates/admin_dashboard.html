@@ -2,62 +2,107 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script>
+        function fetchStudentInfo(trno) {
+            if (!trno) {
+                document.getElementById('student_name').value = '';
+                document.getElementById('student_class').value = '';
+                return;
+            }
+            fetch('/get_student_info?trno=' + encodeURIComponent(trno))
+                .then(response => response.json())
+                .then(data => {
+                    if (data.name) {
+                        document.getElementById('student_name').value = data.name;
+                        document.getElementById('student_class').value = data.student_class || '';
+                    } else {
+                        document.getElementById('student_name').value = 'Not Found';
+                        document.getElementById('student_class').value = '';
+                    }
+                })
+                .catch(() => {
+                    document.getElementById('student_name').value = 'Error';
+                    document.getElementById('student_class').value = '';
+                });
+        }
+    </script>
 </head>
 
 <body>
     <header>
-        <h1>Disabled Account Reporting System - Admin</h1>
+        <h1>Account Disabling Portal - Admin Panel</h1>
     </header>
 
-    <div class="container">
+    <main class="container">
         <div class="dashboard">
+
+            <!-- Admin Info Card -->
             <div class="card">
                 <div class="card-header">
-                    Admin Dashboard
-                    <!-- Logout Button -->
+                    Welcome, {{ username }} (Admin)
                     <a href="/logout" class="logout-btn">Logout</a>
                 </div>
                 <div class="card-body">
                     <form action="/submit_report" method="POST" enctype="multipart/form-data">
-                        <label for="student_name">Student Name</label>
-                        <input type="text" id="student_name" name="student_name" placeholder="Student's Name" required>
-
                         <label for="trno">Student TRNO</label>
-                        <input type="text" id="trno" name="trno" placeholder="Student TRNO" required>
+                        <input type="text" id="trno" name="trno" placeholder="Enter TRNO" required oninput="fetchStudentInfo(this.value)" />
+                        <small class="hint">Start typing TRNO to auto-fill name and class.</small>
+
+                        <label for="student_name">Student Name</label>
+                        <input type="text" id="student_name" name="student_name" placeholder="Auto-filled name" readonly required />
+
+                        <label for="student_class">Student Class</label>
+                        <input type="text" id="student_class" name="student_class" placeholder="Auto-filled class" readonly />
 
                         <label for="reason">Reason for Disabling</label>
-                        <textarea id="reason" name="reason" placeholder="Explain the reason" required></textarea>
+                        <textarea id="reason" name="reason" placeholder="Clearly explain the reason for disabling the account" rows="4" required></textarea>
 
-                        <label for="image">Upload Screenshot (if any)</label>
-                        <input type="file" id="image" name="image">
+                        <label for="image">Upload Screenshot (Optional)</label>
+                        <input type="file" id="image" name="image" accept="image/*" />
 
-                        <button type="submit">Submit Report</button>
+                        <button type="submit" class="primary-btn">Submit Report</button>
                     </form>
                 </div>
             </div>
 
-            <!-- Reports Section -->
+            <!-- Reports Table -->
             <div class="card">
-                <div class="card-header">Reports</div>
+                <div class="card-header">Submitted Reports</div>
                 <div class="card-body">
                     <table>
-                        <tr>
-                            <th>Student Name</th>
-                            <th>TRNO</th>
-                            <th>Reason</th>
-                            <th>Disabled By</th>
-                            <th>Date</th>
-                        </tr>
-                        <!-- Dynamic report entries will go here -->
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>TRNO</th>
+                                <th>Class</th>
+                                <th>Reason</th>
+                                <th>Disabled By</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Example row -->
+                            <!--
+                            <tr>
+                                <td>Ali Khan</td>
+                                <td>TR1234</td>
+                                <td>10-B</td>
+                                <td>Account misuse</td>
+                                <td>admin_user</td>
+                                <td>2025-05-22 09:00</td>
+                            </tr>
+                            -->
+                            <!-- Dynamic content will be rendered by Flask if needed -->
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <footer>
         <p>&copy; 2025 Mamal Administration System</p>

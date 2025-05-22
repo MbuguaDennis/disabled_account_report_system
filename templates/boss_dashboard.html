@@ -1,58 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Janab Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
         table {
-            border-collapse: collapse;
             width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
         }
+
         th, td {
-            border: 1px solid #999;
-            padding: 8px;
+            border: 1px solid #ccc;
+            padding: 0.75rem;
             text-align: left;
         }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
         img {
             max-width: 100px;
+            height: auto;
+            display: block;
+        }
+
+        .top-bar {
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .top-bar a {
+            margin-right: 1rem;
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .top-bar a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <h2>Disabled Accounts Report</h2>
-    <a href="{{ url_for('logout') }}">Logout</a> |
-    <a href="{{ url_for('export') }}">Export to Excel</a>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Student Name</th>
-                <th>TRNO</th>
-                <th>Disabled By</th>
-                <th>Reason</th>
-                <th>Screenshot</th>
-                <th>Date Disabled</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for report in reports %}
-            <tr>
-                <td>{{ report[0] }}</td>
-                <td>{{ report[1] }}</td>
-                <td>{{ report[2] }}</td>
-                <td>{{ report[3] }}</td>
-                <td>{{ report[4] }}</td>
-                <td>
-                    {% if report[5] %}
-                        <img src="{{ url_for('static', filename='uploads/' + report[5]) }}" alt="Screenshot">
-                    {% else %}
-                        No Image
-                    {% endif %}
-                </td>
-                <td>{{ report[6] }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <header>
+        <h1>Disabled Accounts Review - Janab Panel</h1>
+    </header>
+
+    <main class="container">
+        <div class="top-bar">
+            <a href="{{ url_for('logout') }}">Logout</a>
+            <a href="{{ url_for('export') }}">Download Report (Excel)</a>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Submitted Reports</div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Student Name</th>
+                            <th>TRNO</th>
+                            <th>Class</th>
+                            <th>Disabled By</th>
+                            <th>Reason</th>
+                            <th>Screenshot</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for report in reports %}
+                        <tr>
+                            <td>{{ report[0] }}</td> <!-- id -->
+                            <td>{{ report[1] }}</td> <!-- student_name -->
+                            <td>{{ report[2] }}</td> <!-- trno -->
+                            <td>{{ report[3] }}</td> <!-- student_class -->
+                            <td>{{ report[4] }}</td> <!-- disabled_by -->
+                            <td>{{ report[5] }}</td> <!-- reason -->
+                            <td>
+                                {% if report[6] %}
+                                    <img src="{{ url_for('static', filename='uploads/' + report[6]) }}" alt="Screenshot">
+                                {% else %}
+                                    No Image
+                                {% endif %}
+                            </td>
+                            <td>{{ report[7] }}</td> <!-- date_disabled -->
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Mamal Administration System</p>
+    </footer>
 </body>
 </html>
