@@ -1,42 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mamal Student System Login</title>
-    <link rel="stylesheet" href="static/css/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script>
+        function onRoleChange() {
+            const role = document.getElementById('role').value;
+            const adminSelect = document.getElementById('admin-select');
+            const usernameInput = document.getElementById('username-input');
+
+            if(role === 'admin') {
+                adminSelect.style.display = 'block';
+                usernameInput.style.display = 'none';
+            } else {
+                adminSelect.style.display = 'none';
+                usernameInput.style.display = 'block';
+            }
+        }
+        window.onload = () => {
+            onRoleChange();
+        };
+    </script>
 </head>
-
 <body>
-    <header>
-        <h1>Students Account Status Management</h1>
-    </header>
+    <h1>Login</h1>
+    <form action="{{ url_for('do_login') }}" method="POST">
+        <label for="role">Select Role:</label>
+        <select id="role" name="role" onchange="onRoleChange()" required>
+            <option value="">--Select Role--</option>
+            <option value="admin">Admin</option>
+            <option value="boss">Boss</option>
+        </select>
 
-    <div class="container">
-        <div class="card">
-            <div class="card-header">Login to access Personalized Dashboard <span></span></div>
-            <div class="card-body">
-                <form action="/login" method="POST">
-                   <label for="username">Username</label>
-<input type="text" id="username" name="username" value="Administrator" required />
-
-<label for="role">Select Role</label>
-<select id="role" name="role" required>
-    <option value="" disabled selected>Select a role</option>
-    <option value="admin">Computer Lab Admin</option>
-    <option value="boss">Janab</option>
-</select>
-
-                    <button type="submit">Login</button>
-                </form>
-            </div>
+        <div id="admin-select" style="display:none; margin-top:10px;">
+            <label for="username">Select Admin:</label>
+            <select name="username" id="username">
+                <option value="">--Select Admin--</option>
+                {% for admin in admins %}
+                <option value="{{ admin }}">{{ admin }}</option>
+                {% endfor %}
+            </select>
         </div>
-    </div>
 
-    <footer>
-        <p>&copy; 2025 Disabled Account Reporting System</p>
-    </footer>
+        <div id="username-input" style="display:none; margin-top:10px;">
+            <label for="username_text">Username:</label>
+            <input type="text" id="username_text" name="username" placeholder="Enter your username" />
+        </div>
+
+        <button type="submit">Login</button>
+    </form>
 </body>
-
 </html>

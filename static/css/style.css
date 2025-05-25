@@ -1,172 +1,219 @@
-/* Global styles */
+/* Reset some default styling */
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #f7fafc;
-    color: #4a5568;
-    font-size: 16px;
-    line-height: 1.5;
-}
-
-/* Container */
-.container {
-    max-width: 800px;
-    width: 90%;
-    margin: 0 auto;
-    padding: 20px;
+    margin: 0;
+    background: #f4f7fa;
+    color: #333;
+    line-height: 1.6;
 }
 
 /* Header */
 header {
-    background-color: #2b6cb0;
-    color: white;
-    text-align: center;
+    background: #004080;
+    color: #fff;
     padding: 20px 0;
-}
-select{
-    cursor: pointer;
-}
-
-header h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-/* small */
-small{
-    font-size: 1.1rem;
-    display:block;
-    padding: 14px;
-    margin-bottom: 14px;
-    color: #F26419;
-    border: 1px solid #F6AE2D;
-}
-
-/* Navbar */
-nav {
-    background-color: #2b6cb0;
-    padding: 10px 0;
-    display: flex;
-    justify-content: center;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    margin: 0 10px;
-    font-size: 1.1rem;
-}
-
-nav a:hover {
-    background-color: #3182ce;
-    border-radius: 5px;
-}
-
-/* Form Inputs */
-input[type="text"],
-input[type="password"],
-input[type="file"],
-textarea,
-select {
-    width: 100%;
-    max-width: 500px; /* Set a max-width for input fields */
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #ffffff;
-    font-size: 1rem;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus,
-textarea:focus,
-select:focus {
-    outline: none;
-    border-color: #2b6cb0;
-    box-shadow: 0 0 5px rgba(43, 108, 176, 0.5);
-}
-
-/* Buttons */
-button {
-    background-color: #2b6cb0;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-button:hover {
-    background-color: #3182ce;
-}
-
-/* Card Layouts for Dashboards */
-.card {
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    padding: 20px;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: 1px;
     margin-bottom: 30px;
 }
 
+/* Container and Card */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 15px 40px;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+    margin-bottom: 30px;
+    padding: 20px 25px;
+}
+
 .card-header {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #2d3748;
+    font-size: 1.2rem;
+    font-weight: 700;
     margin-bottom: 15px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 8px;
+    color: #004080;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.card-body {
-    font-size: 1rem;
-    color: #4a5568;
-}
-
-.card-footer {
-    text-align: right;
-    margin-top: 20px;
-}
-
-/* Dashboard Styles */
-.dashboard {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-
-.dashboard .card {
-    width: 100%;
-}
-
-@media (max-width: 768px) {
-    .dashboard {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #2b6cb0;
+.logout-btn {
+    background: #e74c3c;
     color: white;
+    padding: 6px 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
 }
 
-footer p {
+.logout-btn:hover {
+    background: #c0392b;
+}
+
+/* Forms */
+form label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+form input[type="text"],
+form input[type="file"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    margin-top: 5px;
     font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+form input[type="text"]:focus,
+form input[type="file"]:focus,
+form textarea:focus,
+form select:focus {
+    outline: none;
+    border-color: #004080;
+    box-shadow: 0 0 6px #004080a3;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.hint {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 3px;
+}
+
+/* Buttons */
+.primary-btn,
+button[type="submit"] {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: #004080;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: inline-block;
+}
+
+.primary-btn:hover,
+button[type="submit"]:hover {
+    background: #002f5a;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+table thead tr {
+    background: #004080;
+    color: white;
+    text-align: left;
+}
+
+table th,
+table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+table tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+table tbody tr:hover {
+    background: #e6f0ff;
+}
+
+/* Login-specific layout */
+body.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+form.login-form {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-form {
+  background-color: rgb(228, 27, 137);
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-form h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #004080;
+    font-size: 1.8rem;
+}
+
+/* Override wide form inputs ONLY on login form */
+form.login-form select,
+form.login-form input[type="text"] {
+    width: auto;
+    min-width: 220px;
+    max-width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .card {
+        padding: 15px 12px;
+    }
+
+    form label,
+    form input,
+    form textarea,
+    form select,
+    .primary-btn,
+    button[type="submit"] {
+        font-size: 0.9rem;
+    }
+
+    header {
+        font-size: 1.3rem;
+    }
+
+    form.login-form select,
+    form.login-form input[type="text"] {
+        width: 100%;
+    }
 }

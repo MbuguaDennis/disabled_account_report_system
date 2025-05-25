@@ -11,14 +11,11 @@ db_path = 'disabled_students.db'
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# --------------------------------------
-# Initialize the database
-# --------------------------------------
+ADMINS = ['Dennis', 'Steve', 'Partrick', 'Mellisa', 'Maureen', 'Faith']
+
 def init_db():
     conn = sqlite3.connect(db_path)
     c = conn.cursor()
-
-    # Create reports table
     c.execute('''
         CREATE TABLE IF NOT EXISTS reports (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -31,8 +28,6 @@ def init_db():
             date_disabled TEXT NOT NULL
         )
     ''')
-
-    # Create students table
     c.execute('''
         CREATE TABLE IF NOT EXISTS students (
             trno TEXT PRIMARY KEY,
@@ -40,13 +35,9 @@ def init_db():
             student_class TEXT NOT NULL
         )
     ''')
-
     conn.commit()
     conn.close()
 
-# --------------------------------------
-# Load student data from Excel
-# --------------------------------------
 def load_students_from_excel(path='static/data/students.xlsx'):
     if os.path.exists(path):
         df = pd.read_excel(path)
@@ -63,25 +54,29 @@ def load_students_from_excel(path='static/data/students.xlsx'):
     else:
         print("[WARNING] Excel file not found at", path)
 
-# --------------------------------------
-# Routes
-# --------------------------------------
-
 @app.route('/')
 def login():
-    return render_template('login.html')
+    return render_template('login.html', admins=ADMINS)
 
 @app.route('/login', methods=['POST'])
 def do_login():
-    username = request.form['username']
-    role = request.form['role']
+    username = request.form.get('username')
+    role = request.form.get('role')
+
+    # If admin role, username must be selected from ADMINS list
+    if role == 'admin':
+        if username not in ADMINS:
+            return "Invalid admin username", 400
+
     session['username'] = username
     session['role'] = role
+
     if role == 'admin':
         return redirect(url_for('admin_dashboard'))
     elif role == 'boss':
         return redirect(url_for('boss_dashboard'))
-    return redirect(url_for('login'))
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/logout')
 def logout():
@@ -92,7 +87,17 @@ def logout():
 def admin_dashboard():
     if 'username' not in session or session['role'] != 'admin':
         return redirect(url_for('login'))
-    return render_template('admin_dashboard.html', username=session['username'])
+
+    username = session['username']
+
+    conn = sqlite3.connect(db_path)
+    c = conn.cursor()
+    # Select only reports disabled by this admin
+    c.execute("SELECT student_name, trno, student_class, reason, disabled_by, date_disabled FROM reports WHERE disabled_by = ? ORDER BY date_disabled DESC", (username,))
+    reports = c.fetchall()
+    conn.close()
+
+    return render_template('admin_dashboard.html', username=username, reports=reports)
 
 @app.route('/submit_report', methods=['POST'])
 def submit_report():
@@ -115,7 +120,6 @@ def submit_report():
 
     student_name, student_class = student
 
-    # Save image if provided
     if image and image.filename:
         image_filename = image.filename
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], image_filename))
@@ -168,9 +172,6 @@ def get_student_info():
         return jsonify({'name': result[0], 'student_class': result[1]})
     return jsonify({'error': 'Student not found'}), 404
 
-# --------------------------------------
-# Main
-# --------------------------------------
 if __name__ == '__main__':
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])

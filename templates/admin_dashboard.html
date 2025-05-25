@@ -44,7 +44,7 @@
             <div class="card">
                 <div class="card-header">
                     Welcome, {{ username }} (Admin)
-                    <a href="/logout" class="logout-btn">Logout</a>
+                    <a href="/logout" class="logout-btn" style="float:right;">Logout</a>
                 </div>
                 <div class="card-body">
                     <form action="/submit_report" method="POST" enctype="multipart/form-data">
@@ -70,8 +70,8 @@
             </div>
 
             <!-- Reports Table -->
-            <div class="card">
-                <div class="card-header">Submitted Reports</div>
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-header">Submitted Reports by You</div>
                 <div class="card-body">
                     <table>
                         <thead>
@@ -80,33 +80,31 @@
                                 <th>TRNO</th>
                                 <th>Class</th>
                                 <th>Reason</th>
-                                <th>Disabled By</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Example row -->
-                            <!--
-                            <tr>
-                                <td>Ali Khan</td>
-                                <td>TR1234</td>
-                                <td>10-B</td>
-                                <td>Account misuse</td>
-                                <td>admin_user</td>
-                                <td>2025-05-22 09:00</td>
-                            </tr>
-                            -->
-                            <!-- Dynamic content will be rendered by Flask if needed -->
+                            {% if reports %}
+                                {% for r in reports %}
+                                    <tr>
+                                        <td>{{ r[0] }}</td>
+                                        <td>{{ r[1] }}</td>
+                                        <td>{{ r[2] }}</td>
+                                        <td>{{ r[3] }}</td>
+                                        <td>{{ r[5] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr><td colspan="5" style="text-align:center;">No reports found.</td></tr>
+                            {% endif %}
                         </tbody>
                     </table>
                 </div>
             </div>
+
         </div>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Mamal Administration System</p>
-    </footer>
 </body>
 
 </html>
